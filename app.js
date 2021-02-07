@@ -9,7 +9,7 @@ const memeRoutes = require("./routes/meme.js");
 const port = process.env.PORT || 8001;
 //DATABASE CONNECTION WITH MONGODB
 mangoose
-    .connect(process.env.DB,{
+    .connect(process.env.DB || "mongodb://localhost/testDB",{
         useNewUrlParser:true,
         useUnifiedTopology:true,
         useFindAndModify: false,
