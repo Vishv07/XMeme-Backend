@@ -13,7 +13,7 @@ const port = process.env.PORT || 8001;
 app.use(bodyParser.json())
 app.use(cookieparser());
 app.use(cors());
-app.use(express.static('dist'));
+// app.use(express.static('dist'));
 //ROUTES
 app.get('/',(req,res,next)=>{
     return json({
