@@ -20,7 +20,7 @@ app.get('/',(req,res,next)=>{
         'message': "Done"
     })
 })
-// app.use("/memes",memeRoutes);
+app.use("/memes",memeRoutes);
 
 mangoose
     .connect(process.env.DB || "mongodb://localhost/testDB",{
