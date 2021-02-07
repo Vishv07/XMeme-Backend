@@ -1,6 +1,8 @@
 const {validationResult} = require("express-validator");
 const Meme = require("../models/meme");
 
+
+// Create a new Meme
 exports.newMeme = async function(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -9,6 +11,7 @@ exports.newMeme = async function(req, res) {
         })
     }
     const meme = new Meme(req.body);
+    // Check Duplicate Payload
     const DuplicateMeme = await Meme.findOne({
         name: req.body.name,
         url: req.body.url
@@ -34,9 +37,8 @@ exports.newMeme = async function(req, res) {
         });
     })
 };
-// For Empty the Document
-// Meme.deleteMany({})
 
+// Fetch all Memes from DB in reverse order
 exports.getAllMemes = function(req, res) {
 
     Meme.find().select('-__v').exec((err, memes) => {
@@ -47,6 +49,8 @@ exports.getAllMemes = function(req, res) {
     })
 };
 
+
+// Fetch Meme By specific ID
 exports.getMemeByID = function(req, res) {
 
     Meme.find({_id:req.params.id}).select('-__v').exec((err, memes) => {
@@ -57,7 +61,7 @@ exports.getMemeByID = function(req, res) {
     })
 };
 
-
+// Update Meme url and caption By specific ID
 exports.updateMeme = function(req,res) {
     const newUrl = req.body.url
     const newCap = req.body.caption;
@@ -82,3 +86,7 @@ exports.updateMeme = function(req,res) {
         }
     )
 };
+
+
+// For Empty the Document
+// Meme.deleteMany({})
