@@ -41,19 +41,12 @@ exports.newMeme = async function(req, res) {
 // Fetch all Memes from DB in reverse order
 exports.getAllMemes = function(req, res) {
 
-    Meme.find({})
-    .then((data)=>{
-        res.json({
-            ans:data[0]
-        })
-       
+    Meme.find().select('-__v').exec((err, memes) => {
+        if (err || !memes) {
+            return res.status(400).json(memes)
+        }
+        res.status(200).json(memes.reverse());
     })
-    // Meme.find().select('-__v').exec((err, memes) => {
-    //     if (err || !memes) {
-    //         return res.status(400).json(memes)
-    //     }
-    //     res.status(200).json(memes.reverse());
-    // })
 };
 
 
