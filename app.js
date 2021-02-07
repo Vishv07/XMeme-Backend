@@ -16,7 +16,7 @@ app.use(cors());
 // app.use(express.static('dist'));
 //ROUTES
 app.get('/',(req,res,next)=>{
-    return json({
+    res.json({
         'message': "Done"
     })
 })
