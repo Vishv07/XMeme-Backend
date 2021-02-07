@@ -23,7 +23,7 @@ app.get('/',(req,res,next)=>{
 app.use("/memes",memeRoutes);
 
 mangoose
-    .connect('mongodb+srv://vishv:dbvishv@cluster0.mkqke.mongodb.net/test?retryWrites=true&w=majority',{
+    .connect( process.env.DB || "mongodb://localhost/testDB",{
         useNewUrlParser:true,
         useUnifiedTopology:true,
         useFindAndModify: false,
