@@ -6,7 +6,7 @@ const cookieparser = require('cookie-parser');
 var bodyParser = require('body-parser')
 const cors = require('cors');
 const memeRoutes = require("./routes/meme.js");
-const port = process.env.PORT || 8001;
+const port =  8001;
 //DATABASE CONNECTION WITH MONGODB
 mangoose
     .connect(process.env.DB,{
@@ -23,7 +23,7 @@ mangoose
 app.use(bodyParser.json())
 app.use(cookieparser());
 app.use(cors());
-
+app.use(express.static('dist'));
 //ROUTES
 app.use("/memes",memeRoutes);
 
