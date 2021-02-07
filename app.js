@@ -27,6 +27,7 @@ app.use(express.static('dist'));
 //ROUTES
 app.use("/memes",memeRoutes);
 
+
 app.listen(port, () => {
     console.log(`app is running on ${port}`);
 });
