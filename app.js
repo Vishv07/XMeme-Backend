@@ -12,6 +12,7 @@ mangoose
     .connect(process.env.DB,{
         useNewUrlParser:true,
         useUnifiedTopology:true,
+        useFindAndModify: false,
         useCreateIndex:true,
         }).then(()=>{
             console.log("DB CONNECTED");
@@ -24,7 +25,7 @@ app.use(cookieparser());
 app.use(cors());
 
 //ROUTES
-app.use("/meme",memeRoutes);
+app.use("/memes",memeRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`app is running on ${process.env.PORT}`);
