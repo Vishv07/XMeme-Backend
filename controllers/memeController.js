@@ -11,6 +11,7 @@ exports.newMeme = async function(req, res) {
         })
     }
     const meme = new Meme(req.body);
+    
     // Check Duplicate Payload
     const DuplicateMeme = await Meme.findOne({
         name: req.body.name,
@@ -18,10 +19,8 @@ exports.newMeme = async function(req, res) {
     })
 
     if (DuplicateMeme) {
-        return res.status(409).json({
-            sucess: false,
-            error: 'Meme Already Exists!'
-        })
+      
+       return res.status(409).json({"msg":'Not Found'});
     }
 
     meme.save((err, newMeme) => {

@@ -6,5 +6,5 @@ services:
   mynode:
     build: .
     ports: 
-      - "8001:8001"
+      - "8081:8081"
     
