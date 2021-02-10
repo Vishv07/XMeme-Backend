@@ -4,9 +4,8 @@ var router = express.Router();
 const {newMeme,getAllMemes,getMemeByID,updateMeme} = require("../controllers/memeController.js")
 
 // To Create a new Meme
-router.post('',[
-    check("name","Plese enter a valid meme").isLength({min:3})
-],newMeme);
+
+router.post('',newMeme);
 
 // To Fetch all memes
 router.get('',getAllMemes);

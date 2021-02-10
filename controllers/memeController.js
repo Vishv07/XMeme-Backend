@@ -1,7 +1,7 @@
 const {validationResult} = require("express-validator");
 const Meme = require("../models/meme");
-
-
+const isImageUrl = require('is-image-url');
+var request = require('request');
 // Create a new Meme
 exports.newMeme = async function(req, res) {
     const errors = validationResult(req);
@@ -11,16 +11,26 @@ exports.newMeme = async function(req, res) {
         })
     }
     const meme = new Meme(req.body);
-    
+
     // Check Duplicate Payload
     const DuplicateMeme = await Meme.findOne({
         name: req.body.name,
         url: req.body.url
     })
-
     if (DuplicateMeme) {
-      
-       return res.status(409).json({"msg":'Not Found'});
+        return res.status(409).json({
+            success: false,
+            msg:"Meme already Exists!"
+        })
+    }
+
+
+    // validate the url
+    if(!checkURL(req.body.url)){
+        return res.status(409).json({
+            success: false,
+            msg:"Please Enter valid URL"
+        })
     }
 
     meme.save((err, newMeme) => {
@@ -30,9 +40,7 @@ exports.newMeme = async function(req, res) {
             })
         }
         res.status(200).json({
-            name: newMeme.name,
-            url: newMeme.url,
-            caption: newMeme.caption,
+            id: newMeme._id
         });
     })
 };
@@ -40,7 +48,8 @@ exports.newMeme = async function(req, res) {
 // Fetch all Memes from DB in reverse order
 exports.getAllMemes = function(req, res) {
 
-    Meme.find().select('-__v').exec((err, memes) => {
+    // in case there is large records fatch 100 only
+    Meme.find().limit(100).select('-__v').exec((err, memes) => {
         if (err || !memes) {
             return res.status(400).json(memes)
         }
@@ -61,11 +70,18 @@ exports.getMemeByID = function(req, res) {
 };
 
 // Update Meme url and caption By specific ID
-exports.updateMeme = function(req,res) {
+exports.updateMeme = async function(req,res) {
     const newUrl = req.body.url
     const newCap = req.body.caption;
-    console.log(newUrl);
-    console.log(newCap);
+
+  // validte the url while updatation
+    if(!checkURL(req.body.url)){
+        return res.status(409).json({
+            success: false,
+            msg:"Please Enter valid URL"
+        })
+    }
+
     Meme.findOneAndUpdate( {_id: req.params.id},
         {url:newUrl,caption:newCap},
         (err, updatedMeme) => {
@@ -75,8 +91,6 @@ exports.updateMeme = function(req,res) {
                     err: "Unable to edit Meme."
                 })
             }
-            console.log(newUrl);
-            console.log(newCap);
             return res.status(204).json({
                 name: updatedMeme.name,
                 url: updatedMeme.url,
@@ -85,6 +99,13 @@ exports.updateMeme = function(req,res) {
         }
     )
 };
+
+//function that validate the url
+function checkURL(URL) {
+    return(URL.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
+
+
 
 
 // For Empty the Document
