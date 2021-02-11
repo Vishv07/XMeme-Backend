@@ -33,7 +33,7 @@ The App should be App :
 
 visit client : http://localhost:3000
 
-visit server : http://localhost:8080
+visit server : http://localhost:8081
 
 To check the status of the running containers :
 
@@ -49,10 +49,17 @@ Run the app using :
 
 ` $ docker-compose up --build -remove-orphans`
 
-The App should be up at http://localhost:8080
+The App should be up at http://localhost:8081
 
 ### Build the image for server :
 docker build -t myapp-server:1 .
 docker images
 docker run --name "myapp-server" -p 80:8080 myapp-server:1
 docker ps
+
+
+### Deployed Links of both Frontend/Backend
+
+1)www.google.com [ Frontend ]
+
+2)www.google.com [ Backend ]
