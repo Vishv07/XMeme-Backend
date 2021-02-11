@@ -12,10 +12,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const swaggerPort = 8080
 
-
-
 //DATABASE CONNECTION WITH MONGODB
-console.log(process.env.DB);
 mangoose
     .connect( process.env.DB || "mongodb://localhost:27017/crio-stage-2",{
         useNewUrlParser:true,

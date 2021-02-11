@@ -13,7 +13,7 @@ services:
     depends_on:
       - mymongo
     environment:
-      DB: mongodb://mymongo:27017/crio-stage-2
+      - DB=mongodb://mymongo:27017/crio-stage-2
 
   reactimage:
     image: "reactimage"
