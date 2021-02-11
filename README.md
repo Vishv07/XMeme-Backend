@@ -60,6 +60,6 @@ docker ps
 
 ### Deployed Links of both Frontend/Backend
 
-1)www.google.com [ Frontend ]
+1) www.google.com [ Frontend ]
 
-2)www.google.com [ Backend ]
+2 )www.google.com [ Backend ]
