@@ -62,4 +62,4 @@ docker ps
 
 1) www.google.com [ Frontend ]
 
-2 )www.google.com [ Backend ]
+2) www.google.com [ Backend ]
